@@ -34,4 +34,9 @@ contract DEX {
         );
         require(sent, "failed to send");
     }
+
+    function withdrawTokens() external onlyOwner {
+        uint256 balance = associatedToken.balanceOf(address(this));
+        associatedToken.transfer(msg.sender, balance);
+    }
 }
