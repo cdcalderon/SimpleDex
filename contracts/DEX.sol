@@ -39,4 +39,11 @@ contract DEX {
         uint256 balance = associatedToken.balanceOf(address(this));
         associatedToken.transfer(msg.sender, balance);
     }
+
+    function withdrawFunds() external onlyOwner {
+        (bool sent, ) = payable(msg.sender).call{value: address(this).balance}(
+            ""
+        );
+        require(sent);
+    }
 }
